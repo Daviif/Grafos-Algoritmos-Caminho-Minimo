@@ -32,7 +32,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Ocorreu um erro: {e}")
 
-# Inicializa os grafos, se houver vértices
+    # Inicializa os grafos, se houver vértices
     if numVertices > 0:
         Grafo1 = MatrizAdjacencias(numVertices)
         Grafo2 = ListaAdjacencias(numVertices)
@@ -42,10 +42,14 @@ if __name__ == "__main__":
             Grafo1.addAresta(origem, destino, peso)
             Grafo2.addAresta(origem, destino, peso)
 
-#Exibe as informações dos grafos
-print("Grafo 1 - Matriz de Adjacências:")
-Grafo1.printGrafo()
-print("\nGrafo 2 - Lista de Adjacências:")
-Grafo2.printGrafo()
+    #Exibe as informações dos grafos
+    print("Grafo 1 - Matriz de Adjacências:")
+    Grafo1.printGrafo()
+    print("\nGrafo 2 - Lista de Adjacências:")
+    Grafo2.printGrafo()
 
-Dijkstra1 = Dijkstra(Grafo1, 0)
+    print("\n--- Executando Dijkstra para Grafo 1 (Matriz) ---")
+    Dijkstra(Grafo1, 0)
+    print("\n--- Executando Dijkstra para Grafo 2 (Lista) ---")
+    Dijkstra(Grafo2, 0)
+        
