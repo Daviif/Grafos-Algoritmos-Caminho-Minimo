@@ -26,16 +26,54 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
 
     V = set(range(grafo.numVertices))
     k = 0
-    for k in V - 1:
+    for k in range (0, len(V)):
         atualizou = False
         for u in V:
-            for v in grafo.vizinhos(u):
-                peso = grafo.matriz[u][v] 
-                if dist[v] > dist[u] + peso:
-                    dist[v] = dist[u] + peso
-                    prev[v] = u
-                    atualizou = True
-                    caminho[v] = caminho[u] + [v]
-
+            if tipo == "Matriz":
+                for v in grafo.vizinhos(u):
+                    peso = grafo.matriz[u][v]
+                    if dist[v] > dist[u] + peso:
+                        dist[v] = dist[u] + peso
+                        prev[v] = u
+                        atualizou = True
+                        caminho[v] = caminho[u] + [v]
+            elif tipo == "Lista":
+                for v, peso in grafo.vizinhos(u):
+                    if v not in dist:
+                        print(f"ERRO: Vértice inválido encontrado: {v} (vindo de {u})")
+                    if dist[v] > dist[u] + peso:
+                        dist[v] = dist[u] + peso
+                        prev[v] = u
+                        atualizou = True
+                        caminho[v] = caminho[u] + [v]
+                
         if atualizou == False:
             k = V
+
+    #Reconstrução do caminho mínimo                    
+    caminho = []
+    atual = verticeDestino
+    while atual != verticeOrigem:
+        caminho.append(atual)
+        atual = prev[atual]
+
+    caminho.append(verticeOrigem)
+    caminho.reverse()
+
+    caminho_str = '-'.join(str(v) for v in caminho)
+    custo_total = dist[verticeDestino]
+
+    # Marca o tempo final da execução e calcula o uso de memória
+    tempo_final = time.time()
+    current, peak = tracemalloc.get_traced_memory()
+    
+    tracemalloc.stop()
+    tempo_execucao = tempo_final - tempo_inicial
+    
+    # Exibe o caminho mínimo, custo total, tempo de execução e uso de memória
+    print("-------------------------------------")
+    print("Algoritmo de Bellman-Ford")
+    print(f"Caminho mínimo: {caminho}")
+    print(f"Custo: {custo_total}")
+    print(f"Tempo de execução: {tempo_execucao:.4f} s")
+    print(f"Memória utilizada: {peak / (1024 * 1024):.4f} MB")

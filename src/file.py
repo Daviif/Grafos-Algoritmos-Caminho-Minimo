@@ -36,6 +36,7 @@ def carregarGrafo(nomeArquivo):
         GrafoL = ListaAdjacencias(numVertices)
         
         for valores in linhasValores:
+            print("Adicionando aresta:", valores)  # debug
             origem, destino, peso = valores
             GrafoM.addAresta(origem, destino, peso)
             GrafoL.addAresta(origem, destino, peso)
