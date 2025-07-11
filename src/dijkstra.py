@@ -64,9 +64,9 @@ def Dijkstra(grafo, verticeOrigem):
                     if dist[v] > dist[u] + peso:
                         dist[v] = dist[u] + peso
                         prev[v] = u
-    
-                       caminho[v] = caminho[u] + [v]
-    #                    
+                        caminho[v] = caminho[u] + [v]
+
+    #Reconstrução do caminho mínimo                    
     destino = grafo.numVertices - 1
     caminho = []
     atual = destino
@@ -80,12 +80,14 @@ def Dijkstra(grafo, verticeOrigem):
     caminho_str = '-'.join(str(v) for v in caminho)
     custo_total = dist[destino]
 
+    # Marca o tempo final da execução e calcula o uso de memória
     tempo_final = time.time()
     current, peak = tracemalloc.get_traced_memory()
     
     tracemalloc.stop()
     tempo_execucao = tempo_final - tempo_inicial
     
+    # Exibe o caminho mínimo, custo total, tempo de execução e uso de memória
     print(f"Caminho mínimo de 0 até {grafo.numVertices - 1}: {caminho}")
     print(f"Custo total: {custo_total}")
     print(f"Tempo de execução: {tempo_execucao:.6f} s")
