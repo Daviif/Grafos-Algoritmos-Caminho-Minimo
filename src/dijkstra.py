@@ -92,5 +92,3 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
     print(f"Custo: {custo_total}")
     print(f"Tempo de execução: {tempo_execucao:.4f} s")
     print(f"Memória utilizada: {peak / (1024 * 1024):.4f} MB")
-    
-    return caminho_str, custo_total

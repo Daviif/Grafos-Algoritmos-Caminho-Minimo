@@ -1,7 +1,8 @@
 from matrizAdjacencias import MatrizAdjacencias
 from listaAdjacencias import ListaAdjacencias
-from dijkstra import Dijkstra
 from file import carregarGrafo
+from dijkstra import Dijkstra
+from bellman_ford import BellmanFord
 import info
 import os
 
@@ -16,4 +17,5 @@ if __name__ == "__main__":
     print("Processando.....")
     Dijkstra(GrafoM, 0, 3)
     Dijkstra(GrafoL, 0, 3)
+    BellmanFord(GrafoM, 0, 3)
         
