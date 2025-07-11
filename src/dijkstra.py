@@ -19,8 +19,8 @@ def Dijkstra(grafo, verticeOrigem):
         prev = {V: None for V in range(grafo.numVertices)}
         
     #Caminhos, para reconstruir o caminho mínimo
-    caminho[verticeOrigem] = [verticeOrigem]
     caminho = [[] for _ in range(grafo.numVertices)]
+    caminho[verticeOrigem] = [verticeOrigem]
 
     #Dist inicial para o vértice de origem é 0, e o predecessor é o próprio vértice de origem
     dist[verticeOrigem] = 0
