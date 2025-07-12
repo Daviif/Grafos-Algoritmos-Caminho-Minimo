@@ -60,7 +60,6 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
     caminho.append(verticeOrigem)
     caminho.reverse()
 
-    caminho_str = '-'.join(str(v) for v in caminho)
     custo_total = dist[verticeDestino]
 
     # Marca o tempo final da execução e calcula o uso de memória
