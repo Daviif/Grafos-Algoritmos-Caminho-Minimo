@@ -48,6 +48,9 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
         O.remove(u) 
         C.add(u) 
 
+        if time.time() - tempo_inicial > 600:
+            print("⏱️ Dijkstra excedeu o tempo de 10 minutos!")
+            return
         if tipo == "Matriz": #Para matriz de adjacências
             # Percorre os vizinhos do vértice u
             for v in grafo.vizinhos(u):
@@ -75,7 +78,6 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
     caminho.append(verticeOrigem)
     caminho.reverse()
 
-    caminho_str = '-'.join(str(v) for v in caminho)
     custo_total = dist[verticeDestino]
 
     # Marca o tempo final da execução e calcula o uso de memória
@@ -90,5 +92,5 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
     print("Algoritmo de Dijkstra")
     print(f"Caminho mínimo: {caminho}")
     print(f"Custo: {custo_total}")
-    print(f"Tempo de execução: {tempo_execucao:.4f} s")
+    print(f"Tempo de execução: {tempo_execucao:.3f} s")
     print(f"Memória utilizada: {peak / (1024 * 1024):.4f} MB")

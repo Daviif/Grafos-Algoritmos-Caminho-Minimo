@@ -29,6 +29,9 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
     for k in range (0, len(V)):
         atualizou = False
         for u in V:
+            if time.time() - tempo_inicial > 600:
+                print("⏱️ Bellman-Ford excedeu o tempo de 10 minutos!")
+                return
             if tipo == "Matriz":
                 for v in grafo.vizinhos(u):
                     peso = grafo.matriz[u][v]
@@ -74,5 +77,5 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
     print("Algoritmo de Bellman-Ford")
     print(f"Caminho mínimo: {caminho}")
     print(f"Custo: {custo_total}")
-    print(f"Tempo de execução: {tempo_execucao:.4f} s")
+    print(f"Tempo de execução: {tempo_execucao:.3f} s")
     print(f"Memória utilizada: {peak / (1024 * 1024):.4f} MB")

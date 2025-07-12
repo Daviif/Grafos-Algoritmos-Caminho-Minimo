@@ -51,6 +51,9 @@ def FloydWarshall(grafo, verticeOrigem, verticeDestino):
     for k in V:
         for i in V:
             for j in V:
+                if time.time() - tempo_inicial > 600:
+                    print("⏱️ Floyd-Warshall excedeu o tempo de 10 minutos!")
+                    return
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
                     prev[i][j] = k
@@ -92,6 +95,6 @@ def FloydWarshall(grafo, verticeOrigem, verticeDestino):
     print("Algoritmo de Floyd-Warshall")
     print(f"Caminho mínimo: {caminho}")
     print(f"Custo: {custo_total}")
-    print(f"Tempo de execução: {tempo_execucao:.4f} s")
+    print(f"Tempo de execução: {tempo_execucao:.3f} s")
     print(f"Memória utilizada: {peak / (1024 * 1024):.4f} MB")
                 
