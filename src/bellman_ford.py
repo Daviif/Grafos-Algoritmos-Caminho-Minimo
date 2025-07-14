@@ -8,6 +8,9 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
     tracemalloc.start()
     tempo_inicial = time.time()
 
+    V = range(grafo.numVertices)
+
+    #Verifica se o grafo é uma matriz de adjacências ou uma lista de adjacências
     if isinstance(grafo, matrizAdjacencias.MatrizAdjacencias):
         tipo = "Matriz"
         dist = [float('inf')] * grafo.numVertices
@@ -21,16 +24,16 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
     caminho = [[] for i in range(grafo.numVertices)]
     caminho[verticeOrigem] = [verticeOrigem]
 
+  
+
     dist[verticeOrigem] = 0
     prev[verticeOrigem] = verticeOrigem
-
-    V = set(range(grafo.numVertices))
-    k = 0
-    for k in range (0, len(V)):
+   
+    for k in range(len(V) - 1):
         atualizou = False
         for u in V:
             if time.time() - tempo_inicial > 600:
-                print("⏱️ Bellman-Ford excedeu o tempo de 10 minutos!")
+                print("Bellman-Ford excedeu o tempo de 10 minutos!")
                 return
             if tipo == "Matriz":
                 for v in grafo.vizinhos(u):
@@ -42,8 +45,6 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
                         caminho[v] = caminho[u] + [v]
             elif tipo == "Lista":
                 for v, peso in grafo.vizinhos(u):
-                    if v not in dist:
-                        print(f"ERRO: Vértice inválido encontrado: {v} (vindo de {u})")
                     if dist[v] > dist[u] + peso:
                         dist[v] = dist[u] + peso
                         prev[v] = u
@@ -51,17 +52,20 @@ def BellmanFord(grafo, verticeOrigem, verticeDestino):
                         caminho[v] = caminho[u] + [v]
                 
         if atualizou == False:
-            k = V
+            break; #k = V
 
-    #Reconstrução do caminho mínimo                    
-    caminho = []
-    atual = verticeDestino
-    while atual != verticeOrigem:
-        caminho.append(atual)
-        atual = prev[atual]
+    #Reconstrução do caminho mínimo     
+    if dist[verticeDestino] == float('inf'):
+        print("Não existe caminho entre os vértices.")
+    else:           
+        caminho = []
+        atual = verticeDestino
+        while atual != verticeOrigem:
+            caminho.append(atual)
+            atual = prev[atual]
 
-    caminho.append(verticeOrigem)
-    caminho.reverse()
+        caminho.append(verticeOrigem)
+        caminho.reverse()
 
     custo_total = dist[verticeDestino]
 
