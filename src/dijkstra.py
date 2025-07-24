@@ -41,7 +41,9 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
             if dist[verticeA] < distMin:
                 distMin = dist[verticeA]
                 u = verticeA
-        
+        if u is None:
+            break
+
         if u == verticeDestino:
             break
 
@@ -49,7 +51,7 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
         C.add(u) 
 
         if time.time() - tempo_inicial > 600:
-            print("⏱️ Dijkstra excedeu o tempo de 10 minutos!")
+            print("Dijkstra excedeu o tempo de 10 minutos!")
             return
         if tipo == "Matriz": #Para matriz de adjacências
             # Percorre os vizinhos do vértice u
@@ -68,15 +70,18 @@ def Dijkstra(grafo, verticeOrigem, verticeDestino):
                         prev[v] = u
                         caminho[v] = caminho[u] + [v]
 
-    #Reconstrução do caminho mínimo                    
-    caminho = []
-    atual = verticeDestino
-    while atual != verticeOrigem:
-        caminho.append(atual)
-        atual = prev[atual]
+    #Reconstrução do caminho mínimo  
+    if dist[verticeDestino] == float('inf'):
+        print("Não existe caminho entre os vértices.")
+    else:                  
+        caminho = []
+        atual = verticeDestino
+        while atual != verticeOrigem:
+            caminho.append(atual)
+            atual = prev[atual]
 
-    caminho.append(verticeOrigem)
-    caminho.reverse()
+        caminho.append(verticeOrigem)
+        caminho.reverse()
 
     custo_total = dist[verticeDestino]
 

@@ -17,8 +17,7 @@ def FloydWarshall(grafo, verticeOrigem, verticeDestino):
         tipo = "Lista"
     
 
-    V = set(range(grafo.numVertices))
-    A = set(range(grafo.numVertices))
+    V = range(grafo.numVertices)
 
     for i in V:
         for j in V:
@@ -52,11 +51,11 @@ def FloydWarshall(grafo, verticeOrigem, verticeDestino):
         for i in V:
             for j in V:
                 if time.time() - tempo_inicial > 600:
-                    print("⏱️ Floyd-Warshall excedeu o tempo de 10 minutos!")
+                    print("Floyd-Warshall excedeu o tempo de 10 minutos!")
                     return
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
-                    prev[i][j] = k
+                    prev[i][j] = prev[k][j]
     
     #Reconstrução do caminho mínimo
     caminho = []                
