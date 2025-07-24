@@ -34,9 +34,20 @@ def carregarGrafo(nomeArquivo):
     if numVertices > 0:
         GrafoM = MatrizAdjacencias(numVertices)
         GrafoL = ListaAdjacencias(numVertices)
+
+        matrizTemp = {}
         
         for valores in linhasValores:
             origem, destino, peso = valores
-            GrafoM.addAresta(origem, destino, peso)
             GrafoL.addAresta(origem, destino, peso)
+            if (origem, destino) not in matrizTemp:
+                matrizTemp[(origem, destino)] = peso
+            else:
+                pesoMin = matrizTemp[(origem, destino)]
+                if peso < pesoMin:
+                    matrizTemp[(origem, destino)] = peso
+
+        for (origem, destino), peso in matrizTemp.items():
+            GrafoM.addAresta(origem, destino, peso)
+            
         return GrafoM, GrafoL
